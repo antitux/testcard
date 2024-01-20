@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: testcard
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testcard
+  namespace: testcard
+  labels:
+    app: testcard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testcard
+  template:
+    metadata:
+      labels:
+        app: testcard
+    spec:
+      imagePullSecrets:
+      - name: dockerhub
+      containers:
+      - name: testcard
+        image: antitux/testcard:latest
+        ports:
+        - containerPort: 80
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: testcard
+  namespace: testcard
+  labels:
+    service: testcard
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+  selector:
+    app: testcard
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: testcard-ingress
+  namespace: testcard
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: testcard.home.antitux.net
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: testcard
+              port:
+                number: 80
+  tls:
+  - hosts:
+    - 'testcard.home.antitux.net'
+    secretName: myingress-cert
