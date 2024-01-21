@@ -38,11 +38,30 @@
   };
 
   if (queryString().banner) {
-    document.getElementById('banner').innerHTML = decodeURI(queryString().banner);
+    if (queryString().cursor) {
+      document.getElementById('banner').innerHTML = decodeURI(queryString().banner) + '<span id="cursor">' + decodeURI(queryString().cursor) + '</span>';
+      var cursor = true;
+      if (queryString().speed) {
+        var speed = decodeURI(queryString().speed);
+      } else {
+        var speed = 500;
+      }
+//      var speed = 500;        
+      setInterval(() => {
+        if(cursor) {
+          document.getElementById('cursor').style.opacity = 0;
+          cursor = false;
+        } else {
+          document.getElementById('cursor').style.opacity = 1;
+          cursor = true;
+        }
+      }, speed);
+    } else {
+      document.getElementById('banner').innerHTML = decodeURI(queryString().banner)
+    }
   } else {
     document.getElementById('banner').remove();
   }
-
   recall();
   window.setInterval(recall, 250);
 })(window, document);
