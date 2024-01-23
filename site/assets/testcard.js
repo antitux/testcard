@@ -38,7 +38,7 @@
 
   if (queryString().banner) {
     if (queryString().cursor) {
-      document.getElementById('banner').innerHTML = decodeURI(queryString().banner) + "&nbsp" + '<span id="cursor">X</span>';
+      document.getElementById('banner').innerHTML = decodeURI(queryString().banner) + "&nbsp" + '<span id="cursor"></span>';
       var cursorStatus = 0;
       if (queryString().speed) {
         var speed = decodeURI(queryString().speed);
