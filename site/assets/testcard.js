@@ -48,19 +48,19 @@
       setInterval(() => {
         if(cursorStatus == 0) {
           document.getElementById('cursor').style.opacity = 1;
-          document.getElementById('cursor').innerHTML = "|"; //"&nbsp&nbsp&nbsp";
+          document.getElementById('cursor').innerHTML = "&nbsp&nbsp&nbsp";
           cursorStatus = 1;
         } else if (cursorStatus == 1) {
           document.getElementById('cursor').style.opacity = 1;
-          document.getElementById('cursor').innerHTML = "/"; //decodeURI(queryString().cursor) + "&nbsp&nbsp";
+          document.getElementById('cursor').innerHTML = decodeURI(queryString().cursor) + "&nbsp&nbsp";
           cursorStatus = 2;
         } else if (cursorStatus == 2) {
           document.getElementById('cursor').style.opacity = 1;
-          document.getElementById('cursor').innerHTML = "-"; //decodeURI(queryString().cursor) + decodeURI(queryString().cursor) + "&nbsp";
+          document.getElementById('cursor').innerHTML = decodeURI(queryString().cursor) + decodeURI(queryString().cursor) + "&nbsp";
           cursorStatus = 3;
         } else if (cursorStatus == 3) {
           document.getElementById('cursor').style.opacity = 1;
-          document.getElementById('cursor').innerHTML = "\\"; //decodeURI(queryString().cursor) + decodeURI(queryString().cursor) + decodeURI(queryString().cursor);
+          document.getElementById('cursor').innerHTML = decodeURI(queryString().cursor) + decodeURI(queryString().cursor) + decodeURI(queryString().cursor);
           cursorStatus = 0;
         }
       }, speed);
